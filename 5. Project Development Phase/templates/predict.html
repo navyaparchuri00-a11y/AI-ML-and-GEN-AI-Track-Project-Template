@@ -1,1 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predict HDI - HDI Prediction System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('index') }}">🌍 HDI Prediction System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url_for('predict') }}">Predict</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('history') }}">History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="mb-0">🔮 HDI Prediction</h3>
+                    </div>
+                    <div class="card-body p-4">
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                                {% for category, message in messages %}
+                                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                        {{ message }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+
+                        <form method="POST" action="{{ url_for('predict') }}">
+                            <div class="mb-3">
+                                <label for="life_expectancy" class="form-label">Life Expectancy at Birth (years)</label>
+                                <input type="number" step="0.1" class="form-control" id="life_expectancy" name="life_expectancy" 
+                                       min="0" max="100" required placeholder="e.g., 75.5">
+                                <div class="form-text">Range: 0 - 100 years</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="expected_schooling" class="form-label">Expected Years of Schooling (years)</label>
+                                <input type="number" step="0.1" class="form-control" id="expected_schooling" name="expected_schooling" 
+                                       min="0" max="25" required placeholder="e.g., 14.5">
+                                <div class="form-text">Range: 0 - 25 years</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="mean_schooling" class="form-label">Mean Years of Schooling (years)</label>
+                                <input type="number" step="0.1" class="form-control" id="mean_schooling" name="mean_schooling" 
+                                       min="0" max="20" required placeholder="e.g., 10.2">
+                                <div class="form-text">Range: 0 - 20 years</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="gni_per_capita" class="form-label">Gross National Income per Capita (PPP $)</label>
+                                <input type="number" step="1" class="form-control" id="gni_per_capita" name="gni_per_capita" 
+                                       min="0" required placeholder="e.g., 15000">
+                                <div class="form-text">In current international $ (PPP)</div>
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg">Predict HDI Category</button>
+                            </div>
+                        </form>
+
+                        <div class="mt-4">
+                            <h5>📊 HDI Categories:</h5>
+                            <ul class="list-group">
+                                <li class="list-group-item"><strong>Very High:</strong> HDI ≥ 0.800</li>
+                                <li class="list-group-item"><strong>High:</strong> 0.700 ≤ HDI < 0.800</li>
+                                <li class="list-group-item"><strong>Medium:</strong> 0.550 ≤ HDI < 0.700</li>
+                                <li class="list-group-item"><strong>Low:</strong> HDI < 0.550</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
