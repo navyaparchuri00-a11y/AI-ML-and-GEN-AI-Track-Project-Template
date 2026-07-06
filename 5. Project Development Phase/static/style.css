@@ -1,1 +1,237 @@
+/* =========================================
+   1. BACKGROUND IMAGE & OVERLAY
+   ========================================= */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+    /* Points to your image in the static/images folder */
+    background-image: url('"C:\Users\NAVYA\AppData\Local\Packages\5319275A.WhatsAppDesktop_cv1g1gvanyjgm\LocalState\sessions\AAD8C396B847B8DC56E068D99C1B95F7E0869276\transfers\2026-27\banner.jpg.jpeg"'); 
+    
+    /* Makes the image cover the whole screen perfectly */
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Keeps the image still while you scroll */
+    
+    min-height: 100vh;
+    color: #333;
+    padding-bottom: 50px;
+    margin: 0;
+    position: relative;
+}
 
+/* Adds a dark tint over the image so text is easy to read */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 25, 47, 0.7); /* Dark blue/black tint with 70% opacity */
+    z-index: -1; /* Puts the tint behind your content but over the image */
+}
+
+/* =========================================
+   2. GLASSMORPHISM CARDS (Frosted Glass)
+   ========================================= */
+.card {
+    background: rgba(255, 255, 255, 0.85) !important; /* Semi-transparent white */
+    backdrop-filter: blur(12px); /* The "frosted" blur effect */
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.3);
+}
+
+.card-body, .card-header {
+    color: #2c3e50;
+}
+
+.card-header {
+    background: rgba(255, 255, 255, 0.5) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+/* =========================================
+   3. NAVBAR STYLING
+   ========================================= */
+.navbar {
+    background: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    padding: 15px 0;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+}
+
+.navbar-brand, .nav-link {
+    color: #ffffff !important;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    color: #f1c40f !important; /* Gold color on hover */
+}
+
+/* =========================================
+   4. BUTTONS & FORMS
+   ========================================= */
+.btn {
+    border-radius: 8px;
+    font-weight: 600;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #2575fc, #6a11cb);
+    border: none;
+    color: white;
+    box-shadow: 0 4px 15px rgba(37, 117, 252, 0.4);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(45deg, #6a11cb, #2575fc);
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(37, 117, 252, 0.6);
+    color: white;
+}
+
+.btn-outline-primary {
+    border: 2px solid #6a11cb;
+    color: #6a11cb;
+    background: transparent;
+}
+
+.btn-outline-primary:hover {
+    background: #6a11cb;
+    color: white;
+    transform: scale(1.05);
+}
+
+.btn-light {
+    background: rgba(255, 255, 255, 0.9);
+    color: #2575fc;
+    border: none;
+}
+
+.btn-light:hover {
+    background: #ffffff;
+    color: #6a11cb;
+    transform: scale(1.05);
+}
+
+.form-control {
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.form-control:focus {
+    border-color: #6a11cb;
+    box-shadow: 0 0 0 0.2rem rgba(106, 17, 203, 0.25);
+    background: #ffffff;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+/* =========================================
+   5. TYPOGRAPHY & HEADINGS
+   ========================================= */
+/* Make headings outside of cards white so they pop against the dark background */
+h1, h2, h3, h4, h5 {
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Override text color inside cards so it's readable on the white glass */
+.card h1, .card h2, .card h3, .card h4, .card h5, 
+.card p, .card td, .card th, .card li, 
+.card .text-muted, .card .text-primary, .card .text-dark {
+    color: #2c3e50 !important;
+    text-shadow: none;
+}
+
+/* =========================================
+   6. TABLES & ALERTS
+   ========================================= */
+.table {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.table thead {
+    background: linear-gradient(45deg, #2575fc, #6a11cb);
+    color: white;
+}
+
+.table thead th {
+    border: none;
+    color: white;
+}
+
+.alert {
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+/* =========================================
+   7. FOOTER
+   ========================================= */
+footer {
+    background: rgba(0, 0, 0, 0.5) !important;
+    backdrop-filter: blur(5px);
+    color: #ffffff !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 50px;
+}
+
+footer p {
+    color: #ffffff !important;
+}
+
+/* =========================================
+   8. MISC & UTILITIES
+   ========================================= */
+.badge {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    border-radius: 6px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background: #6a11cb;
+    border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #2575fc;
+}
