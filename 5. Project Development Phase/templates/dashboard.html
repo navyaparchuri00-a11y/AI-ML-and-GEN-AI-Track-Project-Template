@@ -1,1 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - HDI Prediction System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('index') }}">🌍 HDI Prediction System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('predict') }}">Predict</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('history') }}">History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('about') }}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <span class="nav-link">Welcome, {{ username }}</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-light text-primary ms-2 px-3" href="{{ url_for('logout') }}">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="mb-4">Welcome to Your Dashboard</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card bg-primary text-white h-100">
+                    <div class="card-body text-center">
+                        <h3 class="card-title">🔮 Make Prediction</h3>
+                        <p class="card-text">Predict HDI category for any country</p>
+                        <a href="{{ url_for('predict') }}" class="btn btn-light">Go to Prediction</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card bg-success text-white h-100">
+                    <div class="card-body text-center">
+                        <h3 class="card-title">📜 View History</h3>
+                        <p class="card-text">Check your past predictions</p>
+                        <a href="{{ url_for('history') }}" class="btn btn-light">View History</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card bg-info text-white h-100">
+                    <div class="card-body text-center">
+                        <h3 class="card-title">ℹ️ About HDI</h3>
+                        <p class="card-text">Learn about Human Development Index</p>
+                        <a href="{{ url_for('about') }}" class="btn btn-light">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Quick Stats</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="col-md-3">
+                                <h2>4</h2>
+                                <p>HDI Categories</p>
+                            </div>
+                            <div class="col-md-3">
+                                <h2>4</h2>
+                                <p>Key Indicators</p>
+                            </div>
+                            <div class="col-md-3">
+                                <h2>190+</h2>
+                                <p>Countries in Dataset</p>
+                            </div>
+                            <div class="col-md-3">
+                                <h2>ML</h2>
+                                <p>Random Forest Model</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-4 mt-5">
+        <div class="container">
+            <p>&copy; 2026 HDI Prediction System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
