@@ -1,1 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History - HDI Prediction System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('index') }}">🌍 HDI Prediction System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('predict') }}">Predict</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url_for('history') }}">History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
+    <div class="container mt-5">
+        <h2 class="mb-4">📜 Prediction History</h2>
+        
+        {% if history %}
+            <div class="card shadow">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead class="table-primary">
+                                <tr>
+                                    <th>Date & Time</th>
+                                    <th>Life Expectancy</th>
+                                    <th>Expected Schooling</th>
+                                    <th>Mean Schooling</th>
+                                    <th>GNI per Capita</th>
+                                    <th>Predicted Tier</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for record in history|reverse %}
+                                    <tr>
+                                        <td>{{ record.timestamp }}</td>
+                                        <td>{{ record.life_expectancy }}</td>
+                                        <td>{{ record.expected_schooling }}</td>
+                                        <td>{{ record.mean_schooling }}</td>
+                                        <td>${{ "{:,}".format(record.gni_per_capita|int) }}</td>
+                                        <td>
+                                            {% if record.predicted_tier == 'Very High' %}
+                                                <span class="badge bg-success">{{ record.predicted_tier }}</span>
+                                            {% elif record.predicted_tier == 'High' %}
+                                                <span class="badge bg-primary">{{ record.predicted_tier }}</span>
+                                            {% elif record.predicted_tier == 'Medium' %}
+                                                <span class="badge bg-warning text-dark">{{ record.predicted_tier }}</span>
+                                            {% else %}
+                                                <span class="badge bg-danger">{{ record.predicted_tier }}</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                <h4>No predictions yet!</h4>
+                <p>Start making predictions to see your history here.</p>
+                <a href="{{ url_for('predict') }}" class="btn btn-primary">Make Your First Prediction</a>
+            </div>
+        {% endif %}
+
+        <div class="mt-4">
+            <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
