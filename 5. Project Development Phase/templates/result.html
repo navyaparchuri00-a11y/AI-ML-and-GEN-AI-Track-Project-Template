@@ -1,1 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result - HDI Prediction System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('index') }}">🌍 HDI Prediction System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('predict') }}">New Prediction</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('history') }}">History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('about') }}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-danger text-white ms-2 px-3" href="{{ url_for('logout') }}">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-header bg-success text-white text-center">
+                        <h2 class="mb-0">🎯 Prediction Result</h2>
+                    </div>
+                    <div class="card-body text-center p-5">
+
+                        <h4 class="mb-4">Predicted HDI Category</h4>
+                        
+                        <!-- Result Display Based on Prediction -->
+                        {% if prediction == 'Very High' %}
+                            <div class="alert alert-success">
+                                <h1 class="display-4">🌟 Very High</h1>
+                                <p class="lead">Excellent human development indicators!</p>
+                            </div>
+                        {% elif prediction == 'High' %}
+                            <div class="alert alert-primary">
+                                <h1 class="display-4">👍 High</h1>
+                                <p class="lead">Strong human development performance</p>
+                            </div>
+                        {% elif prediction == 'Medium' %}
+                            <div class="alert alert-warning">
+                                <h1 class="display-4">📈 Medium</h1>
+                                <p class="lead">Moderate human development - room for improvement</p>
+                            </div>
+                        {% else %}
+                            <div class="alert alert-danger">
+                                <h1 class="display-4">⚠️ Low</h1>
+                                <p class="lead">Significant development challenges</p>
+                            </div>
+                        {% endif %}
+
+                        <!-- Input Parameters Table -->
+                        <div class="row mt-5">
+                            <div class="col-12">
+                                <h4>📊 Input Parameters:</h4>
+                                <table class="table table-striped table-bordered mt-3">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>Indicator</th>
+                                            <th>Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>❤️ Life Expectancy</strong></td>
+                                            <td>{{ life_expectancy }} years</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>📚 Expected Years of Schooling</strong></td>
+                                            <td>{{ expected_schooling }} years</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>🎓 Mean Years of Schooling</strong></td>
+                                            <td>{{ mean_schooling }} years</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>💰 GNI per Capita</strong></td>
+                                            <td>${{ "{:,}".format(gni_per_capita | int) }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- HDI Tier Reference -->
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <h5>📋 HDI Tier Reference:</h5>
+                                <div class="row text-center mt-3">
+                                    <div class="col-md-3 mb-2">
+                                        <div class="p-2 bg-success text-white rounded">
+                                            <strong>Very High</strong><br>≥ 0.800
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 mb-2">
+                                        <div class="p-2 bg-primary text-white rounded">
+                                            <strong>High</strong><br>0.700 - 0.799
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 mb-2">
+                                        <div class="p-2 bg-warning text-dark rounded">
+                                            <strong>Medium</strong><br>0.550 - 0.699
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 mb-2">
+                                        <div class="p-2 bg-danger text-white rounded">
+                                            <strong>Low</strong><br>< 0.550
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="mt-5">
+                            <a href="{{ url_for('predict') }}" class="btn btn-primary btn-lg me-2">🔮 Make Another Prediction</a>
+                            <a href="{{ url_for('history') }}" class="btn btn-outline-secondary btn-lg">📜 View History</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-4 mt-5">
+        <div class="container">
+            <p class="mb-0">&copy; 2026 HDI Prediction System | TEAM-HDI-2026</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
